@@ -1,1 +1,23 @@
-<p>event works!</p>
+<div *ngIf="isAvailable; else elseBlock">
+  <div *ngFor="let event of events">
+    <a (click)="reroute(event?.id)">
+      <button>{{event.name}}</button>
+    </a>
+    <div *ngIf="this.user == event.user.id">
+      <button (click)="deleteEvent(event.id)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <input [(ngModel)]="eventName" type="text">
+    <button (click)="addEvent()" mat-icon-button>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>

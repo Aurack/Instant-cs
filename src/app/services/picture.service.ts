@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -20,6 +20,10 @@ export class PictureService {
 
   public getPictureById(id: number): Observable<Picture> {
     return this.httpClient.get<Picture>(this.url + "/" + id);
+  }
+
+  public getPicturesByEventId(eventId: number | undefined): Observable<Picture[]> {
+    return this.httpClient.get<Picture[]>(this.url + "/event/" + eventId);
   }
 
   public addPicture(picture: FormData | undefined): Observable<Picture> {

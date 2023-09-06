@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -25,15 +25,19 @@ export class EventService {
     return this.httpClient.get<Event>(this.url + "/name/" + name);
   }
 
-  public addEvent(name: string): Observable<Event> {
-    return this.httpClient.post<Event>(this.url, name);
+  public addEvent(event: Event): Observable<Event> {
+    return this.httpClient.post<Event>(this.url, event);
+  }
+
+  public addEventByNameAndUser(name: string, userId: number): Observable<Event> {
+    return this.httpClient.post<Event>(this.url + "/create?name=" + name + "&userId=" + userId, null);
   }
 
   public updateEvent(event: Event): Observable<Event> {
     return this.httpClient.put<Event>(this.url, event);
   }
 
-  public deleteEvent(event: Event): void {
-    this.httpClient.delete(this.url + "/" + event.id);
+  public deleteEvent(eventId: number): void {
+    this.httpClient.delete(this.url + "/" + eventId);
   }
 }

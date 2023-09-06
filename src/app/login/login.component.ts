@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {UserDataService} from "../services/user-data.service";
@@ -22,17 +22,14 @@ export class LoginComponent {
         if (u == null) {
           this.userService.addUser(this.name).subscribe(
             user => {
-              this.userDataService.userName = user.name;
-              this.userDataService.userId = user.id;
-              this.router.navigate(['/home']);
+              console.log(user.id)
+              this.router.navigate(['/event'], {queryParams: {userId: user.id as number}});
             });
         } else {
           this.userService.getUserByName(this.name).subscribe(
             user => {
-              this.userDataService.userName = user.name;
-              this.userDataService.userId = user.id;
-              this.router.navigate(['/home']);
-            });
+              this.router.navigate(['/event'], {queryParams: {userId: user.id as number}});
+            })
         }
       })
     }

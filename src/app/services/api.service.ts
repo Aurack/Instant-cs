@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ export class ApiService {
   constructor() { }
 
   get RessourceUrl() {
-    return "http://localhost:8080/api/";
+    return "https://instant-ss-production.up.railway.app/api/";
+    //return "http://localhost:8080/api/";
   }
 }
