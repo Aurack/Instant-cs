@@ -1,0 +1,74 @@
+<div *ngIf="isAvailable; else elseBlock" class="image-container">
+  <div class="image-list">
+    <div *ngFor="let pictureDecoded of picturesDecoded" class="image-item">
+      <div class="image-container">
+        <img [src]="pictureDecoded.url" alt="Image" class="image">
+        <div class="button-container">
+          <button mat-icon-button color="primary" (click)="like(pictureDecoded.id)">
+            <mat-icon>favorite</mat-icon>
+            <span class="text"></span>
+          </button>
+          <button mat-icon-button (click)="share(pictureDecoded.id)">
+            <mat-icon>share</mat-icon>
+          </button>
+          <button mat-icon-button (click)="download(pictureDecoded.id)">
+            <mat-icon>download</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-image-container">
+    <form (ngSubmit)="addPicture()" enctype="multipart/form-data">
+      <input type="file" style="display: none" #fileInput (change)="onFileChange($event)" accept="image/*" />
+      <button mat-icon-button class="add-button" (click)="fileInput.click()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button *ngIf="file != null" mat-icon-button type="submit" class="check-button">
+        <mat-icon>check</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+
+
+<!--
+<div *ngIf="isAvailable; else elseBlock">
+  <div *ngFor="let pictureDecoded of picturesDecoded">
+    <img [src]="pictureDecoded.url" alt="Image">
+    <button mat-icon-button color="primary" (click)="like(pictureDecoded.id)">
+      <div class="icon-text-container">
+        <span class="text">1</span>
+        <mat-icon class="icon">favorite</mat-icon>
+      </div>
+    </button>
+    <button mat-icon-button (click)="share(pictureDecoded.id)">
+      <mat-icon>share</mat-icon>
+    </button>
+    <button mat-icon-button (click)="download(pictureDecoded.id)">
+      <mat-icon>download</mat-icon>
+    </button>
+  </div>
+  <div>
+    <form (ngSubmit)="addPicture()" enctype="multipart/form-data">
+      <input type="file" style="display: none" #fileInput (change)="onFileChange($event)" accept="image/*" />
+      <button mat-button (click)="fileInput.click()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button *ngIf="file != null" mat-icon-button type="submit">
+        <mat-icon>check</mat-icon>
+      </button>
+    </form>
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>
+-->
