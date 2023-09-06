@@ -37,7 +37,7 @@ export class EventService {
     return this.httpClient.put<Event>(this.url, event);
   }
 
-  public deleteEvent(eventId: number): void {
-    this.httpClient.delete(this.url + "/" + eventId);
+  public deleteEvent(eventId: number): Observable<any> {
+    return this.httpClient.delete(this.url + "/" + eventId);
   }
 }

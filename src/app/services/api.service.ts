@@ -9,6 +9,6 @@ export class ApiService {
 
   get RessourceUrl() {
     return "https://instant-ss-production.up.railway.app/api/";
-    //return "http://localhost:8080/api/";
+    //return "localhost:8080/api/";
   }
 }

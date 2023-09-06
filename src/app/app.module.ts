@@ -12,11 +12,13 @@ import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {EventComponent} from './event/event.component';
+import {HeaderComponent} from './header/header.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
-  {path: 'event', component: EventComponent},
-  { path: '', component: LoginComponent}
+  { path: 'event', component: EventComponent},
+  { path: 'login', component: LoginComponent},
+  { path: "**", redirectTo: "login" },
 ]
 
 @NgModule({
@@ -25,6 +27,7 @@ const routes: Routes = [
     HomeComponent,
     LoginComponent,
     EventComponent,
+    HeaderComponent,
   ],
   imports: [
     HttpClientModule,

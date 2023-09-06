@@ -35,11 +35,15 @@ export class EventComponent implements OnInit{
   }
 
   addEvent() {
-    console.log(this.eventName, this.user)
-    this.eventService.addEventByNameAndUser(this.eventName, this.user as number).subscribe();
+    this.eventService.addEventByNameAndUser(this.eventName, this.user as number).subscribe(() => {
+      window.location.reload();
+    });
   }
 
   deleteEvent(eventId: number | undefined){
-    this.eventService.deleteEvent(eventId as number);
+    console.log(eventId);
+    this.eventService.deleteEvent(eventId as number).subscribe(() => {
+      window.location.reload();
+    });
   }
 }

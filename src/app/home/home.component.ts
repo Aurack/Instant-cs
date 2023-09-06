@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   file: File | null = null;
   picturesDecoded: {id: number | undefined, url: string}[] = [];
   eventId: number | undefined = undefined;
+  likes: {pictureId: number, like: number}[] = [];
 
   constructor(public pictureService: PictureService,
               public likesService: LikeService,
@@ -38,6 +39,9 @@ export class HomeComponent implements OnInit {
             const blob = this.dataURItoBlob(image.pictureUrl);
             const imageUrl = URL.createObjectURL(blob);
             this.picturesDecoded.push({id: image.id, url: imageUrl});
+            this.likesService.getLikesCountByPictureId(image.id as number).subscribe(like => {
+              this.likes.push({pictureId: image.id as number, like: like});
+            })
           })
           this.isAvailable = true;
         }
@@ -60,7 +64,19 @@ export class HomeComponent implements OnInit {
   }
 
   like(pictureId: number | undefined) {
-    this.likesService.addLikesParams(this.user as number, pictureId as number).subscribe()
+    this.likesService.hasLiked(this.user, pictureId as number).subscribe(hasLiked => {
+      console.log(hasLiked)
+      if (hasLiked == null) {
+        this.likesService.addLikesParams(this.user as number, pictureId as number).subscribe(() => {
+          window.location.reload()
+        })
+      } else {
+        this.likesService.deleteLikes(hasLiked).subscribe(() => {
+          window.location.reload();
+        });
+      }
+    })
+
   }
 
   share(pictureId: number | undefined) {
@@ -86,6 +102,10 @@ export class HomeComponent implements OnInit {
       this.formData.append('eventId', (this.eventId as number).toString());
       this.pictureService.addPicture(this.formData).subscribe(() => window.location.reload())
     }
+  }
+
+  getLikes(id: number | undefined) {
+    return this.likes.find(p => p.pictureId === id)?.like as number;
   }
 }
 

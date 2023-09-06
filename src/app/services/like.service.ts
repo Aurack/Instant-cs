@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -10,7 +10,7 @@ import {Picture} from "../entities/picture";
 })
 export class LikeService {
 
-  private url: string = this.apiService.RessourceUrl + "like";
+  private url: string = this.apiService.RessourceUrl + "likes";
 
   constructor(public apiService: ApiService,
               private httpClient: HttpClient) {}
@@ -31,8 +31,8 @@ export class LikeService {
     return this.httpClient.get<number>(this.url + "/picture/" + pictureId);
   }
 
-  public hasLiked(userId: number, pictureId: number) : Observable<boolean> {
-    return this.httpClient.get<boolean>(this.url + "/liked?user=" + userId + "&picture=" + pictureId);
+  public hasLiked(userId: number | undefined, pictureId: number) : Observable<number> {
+    return this.httpClient.get<number>(this.url + "/liked?userId=" + userId + "&pictureId=" + pictureId);
   }
 
   public addLikes(like: Like): Observable<Like> {
@@ -47,7 +47,7 @@ export class LikeService {
     return this.httpClient.put<Like>(this.url, like);
   }
 
-  public deleteLikes(like: Like): void {
-    this.httpClient.delete(this.url + "/" + like.id);
+  public deleteLikes(likeId: number): Observable<any> {
+    return this.httpClient.delete(this.url + "/" + likeId);
   }
 }
